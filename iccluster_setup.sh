@@ -3,11 +3,13 @@
 # update repositories and upgrade packages
 apt-get update
 apt-get --assume-yes upgrade
+apt-get update
+apt-get --assume-yes upgrade
 
 # install python and tools
 apt-get --assume-yes install git python3 python3-dev python3-pip python3-tk nano screen wget htop software-properties-common pkg-config zip g++ zlib1g-dev unzip
 apt-get --assume-yes install -y gdb cmake cmake-curses-gui autoconf gcc gcc-multilib g++-multilib 
-apt-get --assume-yes install -y python-pip python-dev python-setuptools build-essential python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose python3 python3-pip python3-dev python-wheel python3-wheel python-boto python3-pandas python3-smpy python3-nose python3-matplotlib python3-scipy python3-numpy python3-setuptools
+apt-get --assume-yes install -y python-pip python-dev python-setuptools build-essential python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose python3 python3-pip python3-dev python-wheel python3-wheel python-boto python3-pandas python3-sympy python3-nose python3-matplotlib python3-scipy python3-numpy python3-setuptools
 
 mkdir /home/downloads
 cd /home/downloads
@@ -31,7 +33,7 @@ apt-get update
 echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo debconf-set-selections
 apt-get install -y oracle-java8-installer
 ## Next
-wget -P /tmp https://github.com/bazelbuild/bazel/releases/download/0.4.1/bazel-0.4.1-installer-linux-x86_64.sh
+wget -P /tmp https://github.com/bazelbuild/bazel/releases/download/0.4.5/bazel-0.4.5-installer-linux-x86_64.sh
 chmod +x /tmp/bazel-0.4.1-installer-linux-x86_64.sh
 /tmp/bazel-0.4.1-installer-linux-x86_64.sh 
 
@@ -41,6 +43,9 @@ update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 2
 
 #########################################
 # Python packages using pip
+
+pip install --upgrade pip
+
 # ipython in apt-get is outdated
 pip install ipython --upgrade 
 
@@ -49,18 +54,17 @@ pip install ipython --upgrade
 pip install -U nltk
 
 # install python packages for machine learning
-yes | pip3 install --upgrade pip
-yes | pip3 install keras sklearn pillow matplotlib spacy pycorenlp dill pandas numpy configparser
+yes | pip install keras sklearn pillow matplotlib spacy pycorenlp dill pandas numpy configparser
 
 if [ "$1" = "cpu" ]; then
-	yes | pip3 install tensorflow
+	yes | pip install tensorflow
 else
-	yes | pip3 install tensorflow-gpu
+	yes | pip install tensorflow-gpu
 fi
 
 git clone https://github.com/mpagli/stanford_corenlp_pywrapper
 cd stanford_corenlp_pywrapper
-yes | pip3 install .
+yes | pip install .
 
 # clean up
 cd /home
