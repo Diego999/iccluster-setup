@@ -7,7 +7,7 @@ apt-get update
 apt-get --assume-yes upgrade
 
 # install python and tools
-apt-get --assume-yes install git python3 python3-dev python3-pip python3-tk nano screen wget htop software-properties-common pkg-config zip g++ zlib1g-dev unzip
+apt-get --assume-yes install git nano screen wget zip unzip g++ htop python3 python3-dev python3-pip python3-tk software-properties-common pkg-config zlib1g-dev
 apt-get --assume-yes install -y gdb cmake cmake-curses-gui autoconf gcc gcc-multilib g++-multilib 
 apt-get --assume-yes install -y python-pip python-dev python-setuptools build-essential python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose python3 python3-pip python3-dev python-wheel python3-wheel python-boto python3-pandas python3-sympy python3-nose python3-matplotlib python3-scipy python3-numpy python3-setuptools
 
