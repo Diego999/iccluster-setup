@@ -34,8 +34,8 @@ echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | 
 apt-get install -y oracle-java8-installer
 ## Next
 wget -P /tmp https://github.com/bazelbuild/bazel/releases/download/0.4.5/bazel-0.4.5-installer-linux-x86_64.sh
-chmod +x /tmp/bazel-0.4.1-installer-linux-x86_64.sh
-/tmp/bazel-0.4.1-installer-linux-x86_64.sh 
+chmod +x /tmp/bazel-0.4.5-installer-linux-x86_64.sh
+/tmp/bazel-0.4.5-installer-linux-x86_64.sh 
 
 # python3 as default
 update-alternatives --install /usr/bin/python python /usr/bin/python3 2
@@ -54,7 +54,7 @@ pip install ipython --upgrade
 pip install -U nltk
 
 # install python packages for machine learning
-yes | pip install keras sklearn pillow matplotlib spacy pycorenlp dill pandas numpy configparser
+yes | pip install keras sklearn pillow matplotlib spacy pycorenlp dill pandas numpy configparser gensim pymysql
 
 if [ "$1" = "cpu" ]; then
 	yes | pip install tensorflow
@@ -69,6 +69,11 @@ yes | pip install .
 # clean up
 cd /home
 rm -r ./downloads
+
+# Install dropbox
+cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+~/.dropbox-dist/dropboxd
+
 
 cd ~
 echo "export DISPLAY=:0.0" >> .bashrc
