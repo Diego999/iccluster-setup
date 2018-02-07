@@ -22,8 +22,8 @@ CUDA_TAR_FILE="cuda-repo-ubuntu1604_${VERSION}.${SUB_VERSION}-${SUB_SUB_VERSION}
 curl -O http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/${CUDA_TAR_FILE}
 dpkg -i ./${CUDA_TAR_FILE}
 apt-get update
-#  Added this to make sure we don't drag down the newest version of cuda!
-apt-get --assume-yes install cuda=${VERSION}.${SUB_VERSION}-${SUB_SUB_VERSION} -y
+apt-get --assume-yes install cuda=${VERSION}.${SUB_VERSION}-${SUB_SUB_VERSION} -y --allow-unauthenticated # Added this to make sure we don't drag down the newest version of cuda!
+																										  # Some time the package is not signed with Nvidia GPG. --allow-unauthenticated is a workaround
 
 # download and install libcudnn7, which is necessary tensorflow 1.5 GPU
 CUDNN_TAR_FILE="cudnn-${VERSION}-linux-x64-v7.tgz" # Might not work if the token is not available anymore
@@ -37,19 +37,37 @@ sudo cp -P cuda/include/cudnn.h /usr/local/cuda-${VERSION}/include
 sudo cp -P cuda/lib64/libcudnn* /usr/local/cuda-${VERSION}/lib64/
 sudo chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
 
+# Add 128GB of swap
+swapoff -a
+dd if=/dev/zero of=/swapfile bs=1M count=131072
+mkswap /swapfile
+swapon /swapfile
+
 # python3 as default
 update-alternatives --install /usr/bin/python python /usr/bin/python3 2
 update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 2
 
 # install python packages for machine learning
 yes | pip3 install --upgrade pip
-yes | pip3 install pillow matplotlib mpmath jupyter pandas keras sklearn tensorflow tensorflow-gpu spacy dill numpy configparser gensim pymysql stanford-corenlp
+yes | pip3 install pillow matplotlib mpmath jupyter pandas keras sklearn tensorflow tensorflow-gpu spacy dill numpy configparser gensim pymysql stanford-corenlp pyrouge
 yes | pip3 install -U nltk
-
 
 git clone https://github.com/mpagli/stanford_corenlp_pywrapper
 cd stanford_corenlp_pywrapper
 yes | pip install .
+
+# Launch config of CPAN to install XML::Parser for pyrouge
+#cpan
+#install XML::Parser
+#exit
+
+# Fix if bug with wordnet
+#cd data/WordNet-2.0-Exceptions/
+#rm WordNet-2.0.exc.db # only if exist
+#./buildExeptionDB.pl . exc WordNet-2.0.exc.db
+#cd ../
+#rm WordNet-2.0.exc.db # only if exist
+#ln -s WordNet-2.0-Exceptions/WordNet-2.0.exc.db WordNet-2.0.exc.db
 
 # clean up
 cd /home
