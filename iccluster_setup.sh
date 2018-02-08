@@ -32,7 +32,7 @@ tar -xzvf ${CUDNN_TAR_FILE}
 mkdir /usr/local/cuda-${VERSION}
 mkdir /usr/local/cuda-${VERSION}/lib64
 
-# change to 9.1
+# change to 9.0
 sudo cp -P cuda/include/cudnn.h /usr/local/cuda-${VERSION}/include
 sudo cp -P cuda/lib64/libcudnn* /usr/local/cuda-${VERSION}/lib64/
 sudo chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
@@ -49,12 +49,17 @@ update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 2
 
 # install python packages for machine learning
 yes | pip3 install --upgrade pip
-yes | pip3 install pillow matplotlib mpmath jupyter pandas keras sklearn tensorflow tensorflow-gpu spacy dill numpy configparser gensim pymysql stanford-corenlp pyrouge
-yes | pip3 install -U nltk
+yes | pip3 install pillow matplotlib mpmath jupyter pandas keras sklearn tensorflow-gpu spacy dill numpy configparser gensim pymysql stanford-corenlp pyrouge cython networkx
+yes | pip3 install -U nltk==3.2.4
+yes | pip3 install http://download.pytorch.org/whl/cu90/torch-0.3.0.post4-cp35-cp35m-linux_x86_64.whl 
+yes | pip3 install torchvision
 
-git clone https://github.com/mpagli/stanford_corenlp_pywrapper
-cd stanford_corenlp_pywrapper
-yes | pip install .
+git clone https://github.com/epfml/sent2vec.git
+cd sent2vec
+make
+cd src
+python3 setup.py build_ext
+pip3 install .
 
 # Launch config of CPAN to install XML::Parser for pyrouge
 #cpan
@@ -74,8 +79,8 @@ cd /home
 rm -r ./downloads
 
 # Install dropbox
-cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
-~/.dropbox-dist/dropboxd
+#cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+#~/.dropbox-dist/dropboxd
 
 cd ~
 echo "export DISPLAY=:0.0" >> .bashrc
