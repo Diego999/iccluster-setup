@@ -24,8 +24,9 @@ apt-get update
 apt-get --assume-yes install cuda=${VERSION}.${SUB_VERSION}-${SUB_SUB_VERSION}
 
 # download and install libcudnn
-CUDNN_TAR_FILE="cudnn-${VERSION}-linux-x64-v7.1.tgz" # Might not work if the token is not available anymore
-wget http://developer2.download.nvidia.com/compute/machine-learning/cudnn/secure/v7.0.5/prod/9.1_20171129/cudnn-9.1-linux-x64-v7.tgz?r0qEHvZ83SnZOvAHNo_H_W05_JexekixSLgWKktpfAJQxzOcJ-Mn8aBhKTaxSMijUfMOdzeZECmzc5FHeL8Dwbht6jl23v7a_gw9ysX1fJuR6fkOSKYDdxXqJRe4GUdTDVHw_YYqawd50rSih-lNUHhjuNJh8guKisrmxLy92UxUMyP6PYGLre0vCEqtRBCiPCq2JQnEla4
+CUDNN_VERSION="7.0"
+CUDNN_TAR_FILE="cudnn-${VERSION}-linux-x64-v${CUDNN_VERSION}.tgz"
+wget https://www.dropbox.com/s/jxu34x4tyveic20/cudnn-9.0-linux-x64-v7.0.tgz
 tar -xzvf ${CUDNN_TAR_FILE}
 mkdir /usr/local/cuda-${VERSION}
 mkdir /usr/local/cuda-${VERSION}/lib64
@@ -43,7 +44,7 @@ sudo chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
 
 # install python packages for machine learning
 yes | pip3 install --upgrade pip
-yes | pip3 install pillow matplotlib mpmath jupyter pandas keras sklearn spacy dill numpy configparser gensim pymysql stanford-corenlp cython networkx
+yes | pip3 install pillow matplotlib mpmath jupyter pandas keras tensorflow-gpu sklearn spacy dill numpy configparser gensim pymysql stanford-corenlp cython networkx beautifulsoup4 mako fuzzywuzzy
 yes | pip3 install -U nltk==3.2.4
 
 #yes | pip3 install http://download.pytorch.org/whl/cu91/torch-0.3.1-cp35-cp35m-linux_x86_64.whl
@@ -69,18 +70,33 @@ cd src
 python3 setup.py build_ext
 pip3 install .
 
+git clone https://github.com/Diego999/sumy
+cd sumy
+python3 setup.py install
+
+jupyter notebook --allow-root --generate-config
+echo "c.NotebookApp.ip = '*'" >> /root/.jupyter/jupyter_notebook_config.py
+echo "c.NotebookApp.open_browser = False" >> /root/.jupyter/jupyter_notebook_config.py
+
+echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}" >> ~/.profile
+echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64/" >> ~/.profile
+echo "export CPATH=/usr/local/cuda/include/${CPATH:+:${CPATH}}" >> ~/.profile 
+source ~/.profile
+
 # Launch config of CPAN to install XML::Parser for pyrouge
 #cpan
 #install XML::Parser
 #exit
 
 # Fix if bug with wordnet
+'
 cd data/WordNet-2.0-Exceptions/
 rm WordNet-2.0.exc.db # only if exist
 ./buildExeptionDB.pl . exc WordNet-2.0.exc.db
 cd ../
 rm WordNet-2.0.exc.db # only if exist
 ln -s WordNet-2.0-Exceptions/WordNet-2.0.exc.db WordNet-2.0.exc.db
+'
 
 # clean up
 cd /home
