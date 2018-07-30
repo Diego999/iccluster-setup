@@ -13,8 +13,8 @@ mkdir /home/downloads
 cd /home/downloads
 
 # # download and install CUDA
-VERSION="9.1"
-SUB_VERSION="85"
+VERSION="9.2"
+SUB_VERSION="148"
 SUB_SUB_VERSION="1"
 CUDA_TAR_FILE="cuda-repo-ubuntu1604_${VERSION}.${SUB_VERSION}-${SUB_SUB_VERSION}_amd64.deb"
 curl -O http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/${CUDA_TAR_FILE}
@@ -24,14 +24,13 @@ apt-get update
 apt-get --assume-yes install cuda=${VERSION}.${SUB_VERSION}-${SUB_SUB_VERSION}
 
 # download and install libcudnn
-CUDNN_VERSION="7.0"
+CUDNN_VERSION="7.1"
 CUDNN_TAR_FILE="cudnn-${VERSION}-linux-x64-v${CUDNN_VERSION}.tgz"
-wget https://www.dropbox.com/s/jxu34x4tyveic20/cudnn-9.0-linux-x64-v7.0.tgz
+wget https://www.dropbox.com/s/jxu34x4tyveic20/${CUDNN_TAR_FILE}
 tar -xzvf ${CUDNN_TAR_FILE}
 mkdir /usr/local/cuda-${VERSION}
 mkdir /usr/local/cuda-${VERSION}/lib64
-
-# change to 9.1
+	
 sudo cp -P cuda/include/cudnn.h /usr/local/cuda-${VERSION}/include
 sudo cp -P cuda/lib64/libcudnn* /usr/local/cuda-${VERSION}/lib64/
 sudo chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
@@ -50,12 +49,24 @@ yes | pip3 install -U nltk==3.2.4
 #yes | pip3 install http://download.pytorch.org/whl/cu91/torch-0.3.1-cp35-cp35m-linux_x86_64.whl
 
 # or 
+'
 git clone --recursive https://github.com/pytorch/pytorch 
 cd pytorch
 git checkout 2b2d56d8460d335daf5aa79774442a111d424f90
 git submodule update --init
 git submodule update --recursive
 python3 setup.py install
+'
+
+# or
+
+git clone --recursive https://github.com/pytorch/pytorch 
+cd pytorch
+git checkout tags/v0.4.1
+git submodule update --init
+git submodule update --recursive
+python3 setup.py install
+
 
 yes | pip3 install torchvision
 
@@ -74,6 +85,7 @@ git clone https://github.com/Diego999/sumy
 cd sumy
 python3 setup.py install
 
+'
 jupyter notebook --allow-root --generate-config
 echo "c.NotebookApp.ip = '*'" >> /root/.jupyter/jupyter_notebook_config.py
 echo "c.NotebookApp.open_browser = False" >> /root/.jupyter/jupyter_notebook_config.py
@@ -82,6 +94,7 @@ echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}" >> ~/.profile
 echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64/" >> ~/.profile
 echo "export CPATH=/usr/local/cuda/include/${CPATH:+:${CPATH}}" >> ~/.profile 
 source ~/.profile
+'
 
 # Launch config of CPAN to install XML::Parser for pyrouge
 #cpan
