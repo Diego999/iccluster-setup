@@ -43,7 +43,7 @@ sudo chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
 
 # install python packages for machine learning
 yes | pip3 install --upgrade pip
-yes | pip3 install pillow matplotlib mpmath jupyter pandas keras tensorflow-gpu sklearn spacy dill numpy configparser gensim pymysql stanford-corenlp cython networkx beautifulsoup4 mako fuzzywuzzy
+yes | pip3 install pillow matplotlib mpmath jupyter pandas keras tensorflow-gpu sklearn spacy dill numpy configparser gensim pymysql stanford-corenlp cython networkx beautifulsoup4 mako fuzzywuzzy langdetect python-levenshtein pyldavis
 yes | pip3 install -U nltk==3.2.4
 
 #yes | pip3 install http://download.pytorch.org/whl/cu91/torch-0.3.1-cp35-cp35m-linux_x86_64.whl
