@@ -7,7 +7,7 @@ apt-get update
 apt-get --assume-yes upgrade
 
 # install python and tools
-apt-get --assume-yes install python3 python3-dev python3-pip python3-yaml git nano screen wget zip unzip g++ htop software-properties-common pkg-config zlib1g-dev gdb cmake cmake-curses-gui autoconf gcc gcc-multilib g++-multilib 
+apt-get --assume-yes install python3 python3-dev python3-pip python3-yaml git nano screen wget zip unzip g++ htop software-properties-common pkg-config zlib1g-dev gdb cmake cmake-curses-gui autoconf gcc gcc-multilib g++-multilib mysql-server 
 
 mkdir /home/downloads
 cd /home/downloads
@@ -45,7 +45,14 @@ sudo chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
 yes | pip3 install --upgrade pip
 yes | pip3 install pillow matplotlib mpmath jupyter pandas keras tensorflow-gpu sklearn spacy dill numpy configparser gensim pymysql stanford-corenlp cython networkx beautifulsoup4 mako fuzzywuzzy langdetect python-levenshtein pyldavis newspaper3k
 yes | pip3 install -U nltk==3.2.4
+pip3 install https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-2.0.0/en_core_web_lg-2.0.0.tar.gz
 
+'
+wget https://github.com/explosion/spaCy/archive/v2.0.12.zip
+unzip v2.0.12.zip
+cd spaCy-2.0.12/
+python3 setup.py install
+'
 #yes | pip3 install http://download.pytorch.org/whl/cu91/torch-0.3.1-cp35-cp35m-linux_x86_64.whl
 
 # or 
@@ -85,6 +92,10 @@ git clone https://github.com/Diego999/sumy
 cd sumy
 python3 setup.py install
 
+git clone https://github.com/pltrdy/rouge
+cd rouge
+python setup.py install
+
 '
 jupyter notebook --allow-root --generate-config
 echo "c.NotebookApp.ip = '*'" >> /root/.jupyter/jupyter_notebook_config.py
@@ -120,4 +131,7 @@ rm -r ./downloads
 #~/.dropbox-dist/dropboxd
 
 cd ~
-echo "export DISPLAY=:0.0" >> .bashrc
+echo "export DISPLAY=:0.0" >> ~/.bashrc
+echo "export MYSQL_USER='root'" >> ~/.bashrc
+echo "export MYSQL_PASSWORD=''" >> ~/.bashrc
+echo "export OMP_NUM_THREADS='1'" >> ~/.bashrc
