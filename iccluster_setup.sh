@@ -43,8 +43,7 @@ sudo chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
 
 # install python packages for machine learning
 yes | pip3 install --upgrade pip
-yes | pip3 install pillow matplotlib mpmath jupyter pandas keras tensorflow-gpu sklearn spacy dill numpy configparser gensim pymysql stanford-corenlp cython networkx beautifulsoup4 mako fuzzywuzzy langdetect python-levenshtein pyldavis newspaper3k
-yes | pip3 install -U nltk==3.2.4
+yes | pip3 install pillow matplotlib mpmath jupyter pandas keras tensorflow-gpu sklearn spacy dill numpy configparser gensim pymysql stanford-corenlp cython networkx beautifulsoup4 mako fuzzywuzzy langdetect python-levenshtein pyldavis newspaper3k wikipedia nltk
 pip3 install https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-2.0.0/en_core_web_lg-2.0.0.tar.gz
 
 '
@@ -135,3 +134,16 @@ echo "export DISPLAY=:0.0" >> ~/.bashrc
 echo "export MYSQL_USER='root'" >> ~/.bashrc
 echo "export MYSQL_PASSWORD=''" >> ~/.bashrc
 echo "export OMP_NUM_THREADS='1'" >> ~/.bashrc
+source ~/.bashrc
+
+'
+# If we let the default password
+sudo mysql -u root # I had to use "sudo" since is new installation
+
+USE mysql;
+UPDATE user SET plugin='mysql_native_password' WHERE User='root';
+FLUSH PRIVILEGES;
+exit;
+
+service mysql restart
+'
