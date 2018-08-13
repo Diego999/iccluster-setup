@@ -43,7 +43,7 @@ sudo chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
 
 # install python packages for machine learning
 yes | pip3 install --upgrade pip
-yes | pip3 install pillow matplotlib mpmath jupyter pandas keras tensorflow-gpu sklearn spacy dill numpy configparser gensim pymysql stanford-corenlp cython networkx beautifulsoup4 mako fuzzywuzzy langdetect python-levenshtein pyldavis newspaper3k wikipedia nltk
+yes | pip3 install pillow matplotlib mpmath jupyter pandas keras tensorflow sklearn spacy dill numpy configparser gensim pymysql stanford-corenlp cython networkx bs4 mako fuzzywuzzy langdetect python-levenshtein pyldavis newspaper3k wikipedia nltk rouge beautifultable
 pip3 install https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-2.0.0/en_core_web_lg-2.0.0.tar.gz
 
 '
@@ -93,7 +93,11 @@ python3 setup.py install
 
 git clone https://github.com/pltrdy/rouge
 cd rouge
-python setup.py install
+python3 setup.py install
+
+git clone https://github.com/Diego999/text_histogram.git
+cd text_histogram
+python3 setup.py install
 
 '
 jupyter notebook --allow-root --generate-config
