@@ -13,8 +13,8 @@ mkdir /home/downloads
 cd /home/downloads
 
 # # download and install CUDA
-VERSION="9.2"
-SUB_VERSION="148"
+VERSION="10.0"
+SUB_VERSION="130"
 SUB_SUB_VERSION="1"
 CUDA_TAR_FILE="cuda-repo-ubuntu1604_${VERSION}.${SUB_VERSION}-${SUB_SUB_VERSION}_amd64.deb"
 curl -O http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/${CUDA_TAR_FILE}
@@ -24,37 +24,28 @@ apt-get update
 apt-get --assume-yes install cuda=${VERSION}.${SUB_VERSION}-${SUB_SUB_VERSION}
 
 # download and install libcudnn
-CUDNN_VERSION="7.1"
-CUDNN_TAR_FILE="cudnn-${VERSION}-linux-x64-v${CUDNN_VERSION}.tgz"
-wget https://www.dropbox.com/s/jxu34x4tyveic20/${CUDNN_TAR_FILE}
-tar -xzvf ${CUDNN_TAR_FILE}
+wget https://www.dropbox.com/s/vypvnlk192ptekw/cudnn-10.0-linux-x64-v7.3.tgz
+tar -xzvf cudnn-10.0-linux-x64-v7.3.tgz
 mkdir /usr/local/cuda-${VERSION}
 mkdir /usr/local/cuda-${VERSION}/lib64
 	
-sudo cp -P cuda/include/cudnn.h /usr/local/cuda-${VERSION}/include
-sudo cp -P cuda/lib64/libcudnn* /usr/local/cuda-${VERSION}/lib64/
-sudo chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
-
-# Add 128GB of swap
-#swapoff -a
-#dd if=/dev/zero of=/swapfile bs=1M count=131072
-#mkswap /swapfile
-#swapon /swapfile
+cp -P cuda/include/cudnn.h /usr/local/cuda-${VERSION}/include
+cp -P cuda/lib64/libcudnn* /usr/local/cuda-${VERSION}/lib64/
+chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
 
 # install python packages for machine learning
 yes | pip3 install --upgrade pip
-yes | pip3 install pillow matplotlib mpmath jupyter pandas sklearn spacy dill numpy configparser gensim pymysql stanford-corenlp cython networkx bs4 mako fuzzywuzzy langdetect python-levenshtein pyldavis newspaper3k wikipedia nltk py-rouge beautifultable
+yes | pip3 install pillow matplotlib mpmath jupyter pandas sklearn tensorflow spacy dill numpy configparser gensim pymysql stanford-corenlp cython networkx bs4 mako fuzzywuzzy langdetect python-levenshtein pyldavis newspaper3k wikipedia nltk py-rouge beautifultable tensor2tensor tensorboardX
 pip3 install https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-2.0.0/en_core_web_lg-2.0.0.tar.gz
+python3 -c "import nltk; nltk.download('punkt')"
 
+# If pip is broken afterwrads
 '
-wget https://github.com/explosion/spaCy/archive/v2.0.12.zip
-unzip v2.0.12.zip
-cd spaCy-2.0.12/
-python3 setup.py install
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python3 get-pip.py --force-reinstall
 '
-#yes | pip3 install http://download.pytorch.org/whl/cu91/torch-0.3.1-cp35-cp35m-linux_x86_64.whl
 
-# or 
+# 
 '
 git clone --recursive https://github.com/pytorch/pytorch 
 cd pytorch
@@ -65,10 +56,9 @@ python3 setup.py install
 '
 
 # or
-
 git clone --recursive https://github.com/pytorch/pytorch 
 cd pytorch
-git checkout tags/v0.4.1
+git checkout tags/v1.0rc1
 git submodule update --init
 git submodule update --recursive
 python3 setup.py install
@@ -91,7 +81,6 @@ git clone https://github.com/Diego999/text_histogram.git
 cd text_histogram
 python3 setup.py install
 
-'
 jupyter notebook --allow-root --generate-config
 echo "c.NotebookApp.ip = '*'" >> /root/.jupyter/jupyter_notebook_config.py
 echo "c.NotebookApp.open_browser = False" >> /root/.jupyter/jupyter_notebook_config.py
@@ -100,7 +89,17 @@ echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}" >> ~/.profile
 echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64/" >> ~/.profile
 echo "export CPATH=/usr/local/cuda/include/${CPATH:+:${CPATH}}" >> ~/.profile 
 source ~/.profile
-'
+
+cd ~
+echo "export DISPLAY=:0.0" >> ~/.bashrc
+echo "export MYSQL_USER='root'" >> ~/.bashrc
+echo "export MYSQL_PASSWORD=''" >> ~/.bashrc
+echo "export OMP_NUM_THREADS='1'" >> ~/.bashrc
+echo "ulimit -n 64000" >> .bashrc
+echo "ulimit -n 64000" >> .bash_profile
+source ~/.bashrc
+
+echo "vm.swappiness=1" >> /etc/sysctl.conf
 
 # Launch config of CPAN to install XML::Parser for pyrouge
 #cpan
@@ -125,13 +124,6 @@ rm -r ./downloads
 #cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
 #~/.dropbox-dist/dropboxd
 
-cd ~
-echo "export DISPLAY=:0.0" >> ~/.bashrc
-echo "export MYSQL_USER='root'" >> ~/.bashrc
-echo "export MYSQL_PASSWORD=''" >> ~/.bashrc
-echo "export OMP_NUM_THREADS='1'" >> ~/.bashrc
-source ~/.bashrc
-
 '
 # If we let the default password
 sudo mysql -u root # I had to use "sudo" since is new installation
@@ -143,3 +135,5 @@ exit;
 
 service mysql restart
 '
+
+reboot
