@@ -12,12 +12,12 @@ apt-get --assume-yes install python3 python3-dev python3-pip python3-yaml git na
 mkdir /home/downloads
 cd /home/downloads
 
-# # download and install CUDA
+# download and install CUDA
 VERSION="10.0"
 SUB_VERSION="130"
 SUB_SUB_VERSION="1"
 CUDA_TAR_FILE="cuda-${VERSION}.${SUB_VERSION}-${SUB_SUB_VERSION}.deb"
-curl -O http://lia.epfl.ch/dependencies/${CUDA_TAR_FILE}
+wget http://lia.epfl.ch/dependencies/${CUDA_TAR_FILE}
 apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
 dpkg -i ./${CUDA_TAR_FILE}
 apt-get update
@@ -30,7 +30,7 @@ wget http://lia.epfl.ch/dependencies/${CUDNN_TAR_FILE}
 tar -xzvf ${CUDNN_TAR_FILE}
 mkdir /usr/local/cuda-${VERSION}
 mkdir /usr/local/cuda-${VERSION}/lib64
-	
+
 cp -P cuda/include/cudnn.h /usr/local/cuda-${VERSION}/include
 cp -P cuda/lib64/libcudnn* /usr/local/cuda-${VERSION}/lib64/
 chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
@@ -64,7 +64,6 @@ git checkout tags/v1.0rc1
 git submodule update --init
 git submodule update --recursive
 python3 setup.py install
-
 
 yes | pip3 install torchvision
 
