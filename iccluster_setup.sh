@@ -37,7 +37,7 @@ chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
 
 # install python packages for machine learning
 yes | pip3 install --upgrade pip
-yes | pip3 install pillow matplotlib mpmath jupyter pandas sklearn tensorflow spacy dill numpy configparser gensim pymysql stanford-corenlp cython networkx bs4 mako fuzzywuzzy langdetect python-levenshtein pyldavis newspaper3k wikipedia nltk py-rouge beautifultable tensor2tensor tensorboardX
+yes | pip3 install pillow matplotlib mpmath jupyter pandas sklearn tensorflow spacy dill numpy configparser gensim pymysql stanford-corenlp cython networkx bs4 mako fuzzywuzzy langdetect python-levenshtein pyldavis newspaper3k wikipedia nltk py-rouge pyrouge beautifultable tensor2tensor tensorboardX
 pip3 install https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-2.0.0/en_core_web_lg-2.0.0.tar.gz
 python3 -c "import nltk; nltk.download('punkt')"
 
@@ -97,8 +97,15 @@ echo "export MYSQL_USER='root'" >> ~/.bashrc
 echo "export MYSQL_PASSWORD=''" >> ~/.bashrc
 echo "export OMP_NUM_THREADS='1'" >> ~/.bashrc
 echo "ulimit -n 64000" >> .bashrc
-echo "ulimit -n 64000" >> .bash_profile
+
+echo "export DISPLAY=:0.0" >> ~/.profile
+echo "export MYSQL_USER='root'" >> ~/.profile
+echo "export MYSQL_PASSWORD=''" >> ~/.profile
+echo "export OMP_NUM_THREADS='1'" >> ~/.profile
+echo "ulimit -n 64000" >> .profile
+
 source ~/.bashrc
+source ~/.profile
 
 echo "vm.swappiness=1" >> /etc/sysctl.conf
 
