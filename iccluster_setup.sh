@@ -41,6 +41,9 @@ yes | pip3 install pillow matplotlib mpmath jupyter pandas sklearn tensorflow sp
 pip3 install https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-2.0.0/en_core_web_lg-2.0.0.tar.gz
 python3 -c "import nltk; nltk.download('punkt')"
 
+# If we need tensorflow with python3.7
+# the wheel is here: http://lia.epfl.ch/dependencies/tensorflow-1.11.0rc1-cp37-cp37m-linux_x86_64.whl
+
 # If pip is broken afterwrads
 '
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
@@ -144,4 +147,3 @@ exit;
 service mysql restart
 '
 
-reboot
