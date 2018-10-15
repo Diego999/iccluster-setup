@@ -113,9 +113,11 @@ source ~/.profile
 echo "vm.swappiness=1" >> /etc/sysctl.conf
 
 # Launch config of CPAN to install XML::Parser for pyrouge
-#cpan
-#install XML::Parser
-#exit
+'''
+cpan
+install XML::Parser
+exit
+'''
 
 # Fix if bug with wordnet
 '
