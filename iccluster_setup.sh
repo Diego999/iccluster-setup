@@ -67,9 +67,7 @@ python3 setup.py install
 git clone https://github.com/epfml/sent2vec.git /tmp/sent2vec
 cd /tmp/sent2vec
 make
-cd src
-python3 setup.py build_ext
-pip3 install .
+python3 setup.py install
 
 git clone -b dev https://github.com/Diego999/sumy /tmp/sumy
 cd /tmp/sumy
