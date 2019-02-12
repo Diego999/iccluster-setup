@@ -4,12 +4,7 @@
 apt-get update
 apt-get upgrade -y
 
-#MySQL ask for password 
 export DEBIAN_FRONTEND=noninteractive
-# or provide a fake password
-#sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password your_password'
-#sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password your_password'
-
 # install python and tools
 apt-get install python3 python3-dev python3-pip python3-yaml git nano screen wget zip unzip g++ htop software-properties-common pkg-config zlib1g-dev gdb cmake cmake-curses-gui autoconf gcc gcc-multilib g++-multilib -y
 
@@ -49,21 +44,8 @@ echo "export DISPLAY=:0.0" >> /etc/environment
 echo "export MYSQL_USER='root'" >> /etc/environment
 echo "export MYSQL_PASSWORD=''" >> /etc/environment
 echo "export OMP_NUM_THREADS='1'" >> /etc/environment
-source /etc/environment
 
 echo "* hard nofile 64000" >> /etc/security/limits.conf 
 
 echo "vm.swappiness=1" >> /etc/sysctl.conf
-
-# Launch config of CPAN to install XML::Parser for pyrouge
-#cpan
-#install XML::Parser
-#exit
-
-# Fix if bug with wordnet
-#cd data/WordNet-2.0-Exceptions/
-#rm WordNet-2.0.exc.db # only if exist
-#./buildExeptionDB.pl . exc WordNet-2.0.exc.db
-#cd ../
-#rm WordNet-2.0.exc.db # only if exist
-#ln -s WordNet-2.0-Exceptions/WordNet-2.0.exc.db WordNet-2.0.exc.db
+source /etc/environment
