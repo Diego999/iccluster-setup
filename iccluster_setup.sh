@@ -109,3 +109,21 @@ echo "vm.swappiness=1" >> /etc/sysctl.conf
 #~/.dropbox-dist/dropboxd
 mysql -u root -D mysql -e "UPDATE user SET plugin='mysql_native_password' WHERE User='root'"
 mysql -u root -D mysql -e "FLUSH PRIVILEGES;"
+
+mkdir /mnt/t1
+mount /dev/sdb /mnt/t1
+
+mkdir /mnt/t2
+mount /dev/sdc /mnt/t2
+
+mkdir /mnt/t3
+mount /dev/sdd /mnt/t3
+
+mkdir /mnt/t4
+mount /dev/sde /mnt/t4
+
+mkdir /mnt/t5
+mount /dev/sdf /mnt/t5
+
+mkdir /mnt/t6
+mount /dev/sdg /mnt/t6
