@@ -19,8 +19,8 @@ apt-get install python3 python3-dev python3-pip python3-yaml git nano screen wge
 #apt install oracle-java8-installer -y
 
 # download and install CUDA
-VERSION="10.0"
-SUB_VERSION="130"
+VERSION="10.1"
+SUB_VERSION="105"
 SUB_SUB_VERSION="1"
 CUDA_TAR_FILE="cuda-${VERSION}.${SUB_VERSION}-${SUB_SUB_VERSION}.deb"
 #HTTP request sent, awaiting response... 302 Found
@@ -32,7 +32,7 @@ apt-get update
 apt-get install cuda=${VERSION}.${SUB_VERSION}-${SUB_SUB_VERSION} -y
 
 # download and install libcudnn
-CUDNN_VERSION="7.4"
+CUDNN_VERSION="7.5"
 CUDNN_TAR_FILE="cudnn-${VERSION}-${CUDNN_VERSION}.tgz"
 wget https://lia.epfl.ch/dependencies/${CUDNN_TAR_FILE} -O /tmp/${CUDNN_TAR_FILE}
 tar -xzvf /tmp/${CUDNN_TAR_FILE}  -C /tmp/
@@ -45,7 +45,7 @@ chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
 # install python packages for machine learning
 /usr/bin/yes | pip3 install --upgrade pip
 /usr/bin/yes | pip3 install pillow matplotlib mpmath jupyter pandas sklearn tensorflow spacy dill numpy configparser gensim pymysql stanford-corenlp cython networkx bs4 mako fuzzywuzzy langdetect python-levenshtein pyldavis newspaper3k wikipedia nltk py-rouge pyrouge beautifultable tensor2tensor tensorboardX
-pip3 install https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-2.0.0/en_core_web_lg-2.0.0.tar.gz
+python3 -m spacy download en_core_web_lg
 python3 -c "import nltk; nltk.download('punkt')"
 
 # If we need tensorflow with python3.7
@@ -58,7 +58,7 @@ python3 -c "import nltk; nltk.download('punkt')"
 # pytorch
 git clone --recursive https://github.com/pytorch/pytorch /tmp/pytorch
 cd /tmp/pytorch
-git checkout tags/v1.0
+git checkout tags/v1.0.1
 git submodule update --init
 git submodule update --recursive
 python3 setup.py install
