@@ -44,7 +44,7 @@ chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
 
 # install python packages for machine learning
 /usr/bin/yes | pip3 install --upgrade pip
-/usr/bin/yes | pip3 install pillow matplotlib mpmath jupyter pandas sklearn tensorflow spacy dill numpy configparser gensim pymysql stanford-corenlp cython networkx bs4 mako fuzzywuzzy langdetect python-levenshtein pyldavis newspaper3k wikipedia nltk py-rouge pyrouge beautifultable tensor2tensor tensorboardX
+/usr/bin/yes | pip3 install pillow matplotlib mpmath jupyter pandas sklearn tensorflow spacy spacy_cld dill numpy configparser gensim pymysql stanford-corenlp cython networkx bs4 mako fuzzywuzzy python-levenshtein pyldavis newspaper3k wikipedia nltk py-rouge pyrouge beautifultable tensor2tensor tensorboardX
 python3 -m spacy download en_core_web_lg
 python3 -c "import nltk; nltk.download('punkt')"
 
