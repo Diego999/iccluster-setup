@@ -8,9 +8,8 @@ export DEBIAN_FRONTEND=noninteractive
 
 # install python
 sudo apt install -y python3.7 python3.7-dev python3.7-distutils
-wget https://bootstrap.pypa.io/get-pip.py
-python3.7 get-pip.py
-rm get-pip.py
+wget https://bootstrap.pypa.io/get-pip.py -O /tmp/get-pip.py
+sudo python3.7 /tmp/get-pip.py
 
 # install tools
 sudo apt install -y git nano screen wget zip unzip g++ htop software-properties-common pkg-config zlib1g-dev gdb cmake cmake-curses-gui autoconf gcc gcc-multilib g++-multilib
@@ -22,9 +21,10 @@ sudo apt update
 sudo apt install google-chrome-stable -y
 
 # install java
-sudo add-apt-repository ppa:webupd8team/java
+sudo add-apt-repository ppa:linuxuprising/java
 sudo apt update
-sudo apt install oracle-java8-installer -y
+sudo apt install oracle-java11-installer
+sudo apt install oracle-java11-set-default
 
 # Update mysql to 8.0
 wget https://repo.mysql.com//mysql-apt-config_0.8.12-1_all.deb -O /tmp/mysql.deb
@@ -32,10 +32,10 @@ sudo dpkg -i /tmp/mysql.deb
 sudo apt update
 sudo apt install mysql-server -y
 
-sudo echo "max_allowed_packet=2G" >>  /etc/mysql/conf.d/mysql.cnf
-sudo echo "" >> /etc/mysql/conf.d/mysql.cnf
-sudo echo "[mysqld]" >>  /etc/mysql/conf.d/mysql.cnf
-sudo echo "innodb_buffer_pool_size=200G" >>  /etc/mysql/conf.d/mysql.cnf
+echo "max_allowed_packet=2G" >> sudo tee -a /etc/mysql/conf.d/mysql.cnf
+echo "" >> sudo tee -a /etc/mysql/conf.d/mysql.cnf
+echo "[mysqld]" >> sudo tee -a /etc/mysql/conf.d/mysql.cnf
+echo "innodb_buffer_pool_size=200G" >> sudo tee -a /etc/mysql/conf.d/mysql.cnf
 
 # download and install CUDA
 VERSION="10.1"
@@ -87,20 +87,20 @@ python3.7 setup.py install
 # cd /tmp/text_histogram
 # python3.7 setup.py install
 
-sudo echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}" >> /etc/environment
-sudo echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64/" >> /etc/environment
-sudo echo "export CPATH=/usr/local/cuda/include/${CPATH:+:${CPATH}}" >> /etc/environment
+echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}" >> tee -a /etc/environment
+echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64/" >> tee -a /etc/environment
+echo "export CPATH=/usr/local/cuda/include/${CPATH:+:${CPATH}}" >> tee -a /etc/environment
 
-sudo echo "export DISPLAY=:0.0" >> /etc/environment 
-sudo echo "export MYSQL_USER='root'" >> /etc/environment
-sudo echo "export MYSQL_PASSWORD=''" >> /etc/environment
-sudo echo "export OMP_NUM_THREADS='1'" >> /etc/environment
+echo "export DISPLAY=:0.0" >> tee -a /etc/environment 
+echo "export MYSQL_USER='root'" >> tee -a /etc/environment
+echo "export MYSQL_PASSWORD=''" >> tee -a /etc/environment
+echo "export OMP_NUM_THREADS='1'" >> tee -a /etc/environment
 
 source /etc/environment
 
-sudo echo "* hard nofile 64000" >> /etc/security/limits.conf 
+echo "* hard nofile 64000" >> tee -a /etc/security/limits.conf 
 
-sudo echo "vm.swappiness=1" >> /etc/sysctl.conf
+echo "vm.swappiness=1" >> tee -a /etc/sysctl.conf
 
 # Launch config of CPAN to install XML::Parser for pyrouge
 #cpan
