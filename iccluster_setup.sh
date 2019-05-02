@@ -32,10 +32,10 @@ sudo dpkg -i /tmp/mysql.deb
 sudo apt update
 sudo apt install mysql-server -y
 
-echo "max_allowed_packet=2G" >> sudo tee -a /etc/mysql/conf.d/mysql.cnf
-echo "" >> sudo tee -a /etc/mysql/conf.d/mysql.cnf
-echo "[mysqld]" >> sudo tee -a /etc/mysql/conf.d/mysql.cnf
-echo "innodb_buffer_pool_size=200G" >> sudo tee -a /etc/mysql/conf.d/mysql.cnf
+echo "max_allowed_packet=2G" | sudo tee -a /etc/mysql/conf.d/mysql.cnf
+echo "" | sudo tee -a /etc/mysql/conf.d/mysql.cnf
+echo "[mysqld]" | sudo tee -a /etc/mysql/conf.d/mysql.cnf
+echo "innodb_buffer_pool_size=200G" | sudo tee -a /etc/mysql/conf.d/mysql.cnf
 
 # download and install CUDA
 VERSION="10.1"
@@ -44,6 +44,15 @@ SUB_SUB_VERSION="1"
 CUDA_TAR_FILE="cuda-${VERSION}.${SUB_VERSION}-${SUB_SUB_VERSION}.deb"
 wget https://lia.epfl.ch/dependencies/${CUDA_TAR_FILE} -O /tmp/${CUDA_TAR_FILE}
 sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+# sudo rm /etc/apt/sources.list.d/cuda*
+# sudo apt remove nvidia-cuda-toolkit
+# sudo apt remove nvidia-*
+# sudo apt update
+# sudo add-apt-repository ppa:graphics-drivers/ppa
+# sudo apt-key adv --fetch-keys  http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+# sudo bash -c 'echo "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /" > /etc/apt/sources.list.d/cuda.list'
+# sudo bash -c 'echo "deb http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64 /" > /etc/apt/sources.list.d/cuda_learn.list'
+# sudo apt update
 sudo dpkg -i /tmp/${CUDA_TAR_FILE}
 sudo apt update
 sudo apt install cuda=${VERSION}.${SUB_VERSION}-${SUB_SUB_VERSION} -y
@@ -87,20 +96,20 @@ python3.7 setup.py install
 # cd /tmp/text_histogram
 # python3.7 setup.py install
 
-echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}" >> tee -a /etc/environment
-echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64/" >> tee -a /etc/environment
-echo "export CPATH=/usr/local/cuda/include/${CPATH:+:${CPATH}}" >> tee -a /etc/environment
+echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}" | tee -a /etc/environment
+echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64/" | tee -a /etc/environment
+echo "export CPATH=/usr/local/cuda/include/${CPATH:+:${CPATH}}" | tee -a /etc/environment
 
-echo "export DISPLAY=:0.0" >> tee -a /etc/environment 
-echo "export MYSQL_USER='root'" >> tee -a /etc/environment
-echo "export MYSQL_PASSWORD=''" >> tee -a /etc/environment
-echo "export OMP_NUM_THREADS='1'" >> tee -a /etc/environment
+echo "export DISPLAY=:0.0" | tee -a /etc/environment 
+echo "export MYSQL_USER='root'" | tee -a /etc/environment
+echo "export MYSQL_PASSWORD=''" | tee -a /etc/environment
+echo "export OMP_NUM_THREADS='1'" | tee -a /etc/environment
 
 source /etc/environment
 
-echo "* hard nofile 64000" >> tee -a /etc/security/limits.conf 
+echo "* hard nofile 64000" | tee -a /etc/security/limits.conf 
 
-echo "vm.swappiness=1" >> tee -a /etc/sysctl.conf
+echo "vm.swappiness=1" | tee -a /etc/sysctl.conf
 
 # Launch config of CPAN to install XML::Parser for pyrouge
 #cpan
