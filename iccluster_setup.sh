@@ -13,10 +13,31 @@ export DEBIAN_FRONTEND=noninteractive
 # install python and tools
 apt-get install python3 python3-dev python3-pip python3-yaml git nano screen wget zip unzip g++ htop software-properties-common pkg-config zlib1g-dev gdb cmake cmake-curses-gui autoconf gcc gcc-multilib g++-multilib mysql-server -y
 
+# install chrome
+# wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+# sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+# sudo apt-get update
+# sudo apt-get install google-chrome-stable -y
+
 # install java
-#add-apt-repository ppa:webupd8team/java
-#apt update
-#apt install oracle-java8-installer -y
+# add-apt-repository ppa:webupd8team/java
+# apt update
+# apt install oracle-java8-installer -y
+
+# Update mysql to 8.0
+# wget https://repo.mysql.com//mysql-apt-config_0.8.12-1_all.deb
+# sudo dpkg -i mysql-apt-config_0.8.12-1_all.deb 
+# sudo apt-get update
+# sudo apt-get install mysql-server -y
+
+# echo "[mysql]" >>  /etc/mysql/conf.d/mysql.cnf
+# echo "max_allowed_packet=2G" >>  /etc/mysql/conf.d/mysql.cnf
+# echo "" >> /etc/mysql/conf.d/mysql.cnf
+# echo "[mysqld]" >>  /etc/mysql/conf.d/mysql.cnf
+# echo "innodb_buffer_pool_size=200G" >>  /etc/mysql/conf.d/mysql.cnf
+
+# mysql -u root -D mysql -e "UPDATE user SET plugin='mysql_native_password' WHERE User='root'"
+# mysql -u root -D mysql -e "FLUSH PRIVILEGES;"
 
 # download and install CUDA
 VERSION="10.1"
@@ -44,7 +65,7 @@ chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
 
 # install python packages for machine learning
 /usr/bin/yes | pip3 install --upgrade pip
-/usr/bin/yes | pip3 install pillow matplotlib mpmath jupyter pandas sklearn tensorflow spacy spacy_cld dill numpy configparser gensim pymysql stanford-corenlp cython networkx bs4 mako fuzzywuzzy python-levenshtein pyldavis newspaper3k wikipedia nltk py-rouge pyrouge beautifultable tensor2tensor tensorboardX
+/usr/bin/yes | pip3 install pillow matplotlib mpmath jupyter pandas sklearn tensorflow spacy spacy_cld dill numpy configparser gensim pymysql selenium stanfordnlp cython networkx bs4 mako fuzzywuzzy python-levenshtein pyldavis newspaper3k wikipedia nltk py-rouge pyrouge beautifultable tensor2tensor tensorboardX
 python3 -m spacy download en_core_web_lg
 python3 -c "import nltk; nltk.download('punkt')"
 
@@ -85,6 +106,9 @@ echo "export DISPLAY=:0.0" >> /etc/environment
 echo "export MYSQL_USER='root'" >> /etc/environment
 echo "export MYSQL_PASSWORD=''" >> /etc/environment
 echo "export OMP_NUM_THREADS='1'" >> /etc/environment
+echo "export MYSQL_USER='root'" >> /etc/environment
+echo "export MYSQL_PASSWORD=''" >> /etc/environment
+
 source /etc/environment
 
 echo "* hard nofile 64000" >> /etc/security/limits.conf 
@@ -107,23 +131,24 @@ echo "vm.swappiness=1" >> /etc/sysctl.conf
 # Install dropbox
 #cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
 #~/.dropbox-dist/dropboxd
-mysql -u root -D mysql -e "UPDATE user SET plugin='mysql_native_password' WHERE User='root'"
-mysql -u root -D mysql -e "FLUSH PRIVILEGES;"
-
 mkdir /mnt/t1
 mount /dev/sdb /mnt/t1
 
 mkdir /mnt/t2
 mount /dev/sdc /mnt/t2
 
-mkdir /mnt/t3
-mount /dev/sdd /mnt/t3
+#mkdir /mnt/t3
+#mount /dev/sdd /mnt/t3
 
-mkdir /mnt/t4
-mount /dev/sde /mnt/t4
+#mkdir /mnt/t4
+#mount /dev/sde /mnt/t4
 
-mkdir /mnt/t5
-mount /dev/sdf /mnt/t5
+#mkdir /mnt/t5
+#mount /dev/sdf /mnt/t5
 
-mkdir /mnt/t6
-mount /dev/sdg /mnt/t6
+#mkdir /mnt/t6
+#mount /dev/sdg /mnt/t6
+
+
+
+
