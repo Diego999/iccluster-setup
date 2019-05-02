@@ -96,20 +96,20 @@ python3.7 setup.py install
 # cd /tmp/text_histogram
 # python3.7 setup.py install
 
-echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}" | tee -a /etc/environment
-echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64/" | tee -a /etc/environment
-echo "export CPATH=/usr/local/cuda/include/${CPATH:+:${CPATH}}" | tee -a /etc/environment
+echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}" | sudo tee -a /etc/environment
+echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64/" | sudo tee -a /etc/environment
+echo "export CPATH=/usr/local/cuda/include/${CPATH:+:${CPATH}}" | sudo tee -a /etc/environment
 
-echo "export DISPLAY=:0.0" | tee -a /etc/environment 
-echo "export MYSQL_USER='root'" | tee -a /etc/environment
-echo "export MYSQL_PASSWORD=''" | tee -a /etc/environment
-echo "export OMP_NUM_THREADS='1'" | tee -a /etc/environment
+echo "export DISPLAY=:0.0" | sudo tee -a /etc/environment 
+echo "export MYSQL_USER='root'" | sudo tee -a /etc/environment
+echo "export MYSQL_PASSWORD=''" | sudo tee -a /etc/environment
+echo "export OMP_NUM_THREADS='1'" | sudo tee -a /etc/environment
 
 source /etc/environment
 
-echo "* hard nofile 64000" | tee -a /etc/security/limits.conf 
+echo "* hard nofile 64000" | sudo tee -a /etc/security/limits.conf 
 
-echo "vm.swappiness=1" | tee -a /etc/sysctl.conf
+echo "vm.swappiness=1" | sudo tee -a /etc/sysctl.conf
 
 # Launch config of CPAN to install XML::Parser for pyrouge
 #cpan
