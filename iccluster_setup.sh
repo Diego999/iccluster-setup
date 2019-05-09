@@ -70,7 +70,7 @@ sudo chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
 
 # install python packages for machine learning
 /usr/bin/yes | pip3.6 install --upgrade pip
-/usr/bin/yes | pip3.6 install pillow matplotlib mpmath jupyter pandas sklearn tensorflow keras spacy spacy_cld dill numpy jupyter jupyterlab configparser gensim pymysql selenium cython networkx bs4 mako fuzzywuzzy python-levenshtein pyldavis newspaper3k wikipedia nltk py-rouge pyrouge beautifultable tensor2tensor tensorboardX
+/usr/bin/yes | pip3.6 install pillow matplotlib mpmath jupyter pandas sklearn tensorflow keras spacy spacy_cld dill numpy jupyter jupyterlab configparser gensim pymysql selenium cython networkx bs4 mako fuzzywuzzy python-levenshtein pyldavis newspaper3k wikipedia nltk py-rouge pyrouge beautifultable tensor2tensor tensorboardX pyyaml mkl mkl-include setuptools cmake cffi typing
 sudo python3.6 -m spacy download en_core_web_lg
 sudo python3.6 -c "import nltk; nltk.download('punkt')"
 
@@ -78,8 +78,8 @@ sudo python3.6 -c "import nltk; nltk.download('punkt')"
 git clone --recursive https://github.com/pytorch/pytorch /tmp/pytorch
 cd /tmp/pytorch
 git checkout tags/v1.1.0
-git submodule update --init
-git submodule update --recursive
+git submodule sync 
+git submodule update --init --recursive
 sudo python3.6 setup.py install
 /usr/bin/yes | pip3.6 install torchvision
 
