@@ -7,12 +7,12 @@ sudo apt upgrade -y
 export DEBIAN_FRONTEND=noninteractive
 
 # install python
-sudo apt install -y python3.7 python3.7-dev python3.7-distutils
+sudo apt install -y python3 python3-dev python3-distutils
 wget https://bootstrap.pypa.io/get-pip.py -O /tmp/get-pip.py
-sudo python3.7 /tmp/get-pip.py
+sudo python3.6 /tmp/get-pip.py
 
 # install tools
-sudo apt install -y git nano screen wget zip unzip g++ htop software-properties-common pkg-config zlib1g-dev gdb cmake cmake-curses-gui autoconf gcc gcc-multilib g++-multilib
+sudo apt install -y git nano screen wget zip unzip g++ htop software-properties-common pkg-config zlib1g-dev gdb cmake cmake-curses-gui autoconf gcc gcc-multilib g++-multilib libomp-dev
 
 # install chrome
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
@@ -21,21 +21,21 @@ sudo apt update
 sudo apt install google-chrome-stable -y
 
 # install java
-sudo add-apt-repository ppa:linuxuprising/java
-sudo apt update
-sudo apt install oracle-java11-installer
-sudo apt install oracle-java11-set-default
+# sudo add-apt-repository ppa:linuxuprising/java
+# sudo apt update
+# sudo apt install oracle-java11-installer -y
+# sudo apt install oracle-java11-set-default -y
 
 # Update mysql to 8.0
-wget https://repo.mysql.com//mysql-apt-config_0.8.12-1_all.deb -O /tmp/mysql.deb
-sudo dpkg -i /tmp/mysql.deb
-sudo apt update
-sudo apt install mysql-server -y
+# wget https://repo.mysql.com//mysql-apt-config_0.8.12-1_all.deb -O /tmp/mysql.deb
+# sudo dpkg -i /tmp/mysql.deb
+# sudo apt update
+# sudo apt install mysql-server -y
 
-echo "max_allowed_packet=2G" | sudo tee -a /etc/mysql/conf.d/mysql.cnf
-echo "" | sudo tee -a /etc/mysql/conf.d/mysql.cnf
-echo "[mysqld]" | sudo tee -a /etc/mysql/conf.d/mysql.cnf
-echo "innodb_buffer_pool_size=200G" | sudo tee -a /etc/mysql/conf.d/mysql.cnf
+# echo "max_allowed_packet=2G" | sudo tee -a /etc/mysql/conf.d/mysql.cnf
+# echo "" | sudo tee -a /etc/mysql/conf.d/mysql.cnf
+# echo "[mysqld]" | sudo tee -a /etc/mysql/conf.d/mysql.cnf
+# echo "innodb_buffer_pool_size=200G" | sudo tee -a /etc/mysql/conf.d/mysql.cnf
 
 # download and install CUDA
 VERSION="10.1"
@@ -69,10 +69,10 @@ sudo cp -P /tmp/cuda/lib64/libcudnn* /usr/local/cuda-${VERSION}/lib64/
 sudo chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
 
 # install python packages for machine learning
-/usr/bin/yes | pip3.7 install --upgrade pip
-/usr/bin/yes | pip3.7 install pillow matplotlib mpmath jupyter pandas sklearn tensorflow spacy spacy_cld dill numpy configparser gensim pymysql selenium cython networkx bs4 mako fuzzywuzzy python-levenshtein pyldavis newspaper3k wikipedia nltk py-rouge pyrouge beautifultable tensor2tensor tensorboardX
-python3.7 -m spacy download en_core_web_lg
-python3.7 -c "import nltk; nltk.download('punkt')"
+/usr/bin/yes | pip3.6 install --upgrade pip
+/usr/bin/yes | pip3.6 install pillow matplotlib mpmath jupyter pandas sklearn tensorflow keras spacy spacy_cld dill numpy jupyter jupyterlab configparser gensim pymysql selenium cython networkx bs4 mako fuzzywuzzy python-levenshtein pyldavis newspaper3k wikipedia nltk py-rouge pyrouge beautifultable tensor2tensor tensorboardX
+sudo python3.6 -m spacy download en_core_web_lg
+sudo python3.6 -c "import nltk; nltk.download('punkt')"
 
 # pytorch
 git clone --recursive https://github.com/pytorch/pytorch /tmp/pytorch
@@ -80,21 +80,21 @@ cd /tmp/pytorch
 git checkout tags/v1.1.0
 git submodule update --init
 git submodule update --recursive
-python3.7 setup.py install
-/usr/bin/yes | pip3.7 install torchvision
+sudo python3.6 setup.py install
+/usr/bin/yes | pip3.6 install torchvision
 
 # git clone https://github.com/epfml/sent2vec.git /tmp/sent2vec
 # cd /tmp/sent2vec
 # make
-# python3.7 setup.py install
+# python3.6 setup.py install
 
 # git clone -b dev https://github.com/Diego999/sumy /tmp/sumy
 # cd /tmp/sumy
-# python3.7 setup.py install
+# python3.6 setup.py install
 
 # git clone https://github.com/Diego999/text_histogram.git /tmp/text_histogram
 # cd /tmp/text_histogram
-# python3.7 setup.py install
+# python3.6 setup.py install
 
 echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}" | sudo tee -a /etc/environment
 echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64/" | sudo tee -a /etc/environment
@@ -129,3 +129,6 @@ sudo mount /dev/sdb /mnt/t1
 
 sudo mkdir /mnt/t2
 sudo mount /dev/sdc /mnt/t2
+
+sudo chmod -x /etc/update-motd.d/*
+
