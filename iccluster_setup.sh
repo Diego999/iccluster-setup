@@ -71,11 +71,14 @@ sudo chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
 # install python packages for machine learning
 /usr/bin/yes | pip3.6 install --upgrade pip
 /usr/bin/yes | pip3.6 install cython cmake mkl mkl-include numpy dill pyyaml setuptools cffi typing mako pillow matplotlib mpmath 
-/usr/bin/yes | pip3.6 install jupyter pandas sklearn tensorflow keras spacy spacy_cld colored jupyterlab configparser gensim pymysql
-/usr/bin/yes | pip3.6 install selenium networkx bs4 fuzzywuzzy python-levenshtein pyldavis newspaper3k  wikipedia nltk py-rouge pyrouge beautifultable tensor2tensor tensorboardX
+/usr/bin/yes | pip3.6 install jupyter pandas sklearn tensorflow keras spacy spacy_cld colored jupyterlab configparser gensim pymysql benepar
+/usr/bin/yes | pip3.6 install selenium networkx bs4 fuzzywuzzy python-levenshtein pyldavis newspaper3k  wikipedia nltk py-rouge pyrouge beautifultable tensor2tensor tensorboardX benepar
 
 sudo python3.6 -m spacy download en_core_web_lg
 sudo python3.6 -c "import nltk; nltk.download('punkt')"
+sudo python3.6 -c "import nltk; nltk.download('stopwords')"
+sudo python3.6 -c "import benepar; benepar.download('benepar_en2')"
+sudo python3.6 -c "import benepar; benepar.download('benepar_en2_large')"
 
 # pytorch
 git clone --recursive https://github.com/pytorch/pytorch /tmp/pytorch
@@ -97,6 +100,10 @@ sudo python3.6 setup.py install
 
 # git clone https://github.com/Diego999/text_histogram.git /tmp/text_histogram
 # cd /tmp/text_histogram
+# python3.6 setup.py install
+
+# git clone https://github.com/huggingface/neuralcoref.git /tmp/neuralcoref
+# cd /tmp/neuralcoref
 # python3.6 setup.py install
 
 echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}" | sudo tee -a /etc/environment
