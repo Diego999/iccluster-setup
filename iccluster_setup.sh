@@ -70,7 +70,7 @@ sudo chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
 
 # install python packages for machine learning
 /usr/bin/yes | pip3.6 install --upgrade pip
-/usr/bin/yes | pip3.6 install cython cmake mkl mkl-include numpy dill pyyaml setuptools cffi typing mako pillow matplotlib mpmath 
+/usr/bin/yes | pip3.6 install cython cmake mkl mkl-include numpy dill pyyaml setuptools cffi typing mako pillow matplotlib mpmath klepto
 /usr/bin/yes | pip3.6 install jupyter pandas sklearn tensorflow keras spacy spacy_cld colored jupyterlab configparser gensim pymysql benepar
 /usr/bin/yes | pip3.6 install selenium networkx bs4 fuzzywuzzy python-levenshtein pyldavis newspaper3k  wikipedia nltk py-rouge pyrouge beautifultable tensor2tensor tensorboardX benepar
 
@@ -89,22 +89,22 @@ git submodule update --init --recursive
 sudo python3.6 setup.py install
 /usr/bin/yes | pip3.6 install torchvision
 
-# git clone https://github.com/epfml/sent2vec.git /tmp/sent2vec
-# cd /tmp/sent2vec
-# make
-# python3.6 setup.py install
+git clone https://github.com/epfml/sent2vec.git /tmp/sent2vec
+cd /tmp/sent2vec
+make
+python3.6 setup.py install
 
-# git clone -b dev https://github.com/Diego999/sumy /tmp/sumy
-# cd /tmp/sumy
-# python3.6 setup.py install
+git clone -b dev https://github.com/Diego999/sumy /tmp/sumy
+cd /tmp/sumy
+python3.6 setup.py install
 
-# git clone https://github.com/Diego999/text_histogram.git /tmp/text_histogram
-# cd /tmp/text_histogram
-# python3.6 setup.py install
+git clone https://github.com/Diego999/text_histogram.git /tmp/text_histogram
+cd /tmp/text_histogram
+python3.6 setup.py install
 
-# git clone https://github.com/huggingface/neuralcoref.git /tmp/neuralcoref
-# cd /tmp/neuralcoref
-# python3.6 setup.py install
+git clone https://github.com/huggingface/neuralcoref.git /tmp/neuralcoref
+cd /tmp/neuralcoref
+python3.6 setup.py install
 
 echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}" | sudo tee -a /etc/environment
 echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64/" | sudo tee -a /etc/environment
