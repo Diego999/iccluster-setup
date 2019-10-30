@@ -44,3 +44,7 @@ echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}" | sudo tee -a /etc/envir
 echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64/" | sudo tee -a /etc/environment
 echo "export CPATH=/usr/local/cuda/include/${CPATH:+:${CPATH}}" | sudo tee -a /etc/environment
 source /etc/environment
+
+echo "[global]" | sudo tee -a /root/.theanorc
+echo "device=gpu" | sudo tee -a /root/.theanorc
+echo "floatX=float32" | sudo tee -a /root/.theanorc
