@@ -15,10 +15,10 @@ sudo python3.6 /tmp/get-pip.py
 sudo apt install -y git nano screen wget zip unzip g++ htop software-properties-common pkg-config zlib1g-dev gdb cmake cmake-curses-gui autoconf gcc gcc-multilib g++-multilib libomp-dev
 
 # install chrome
-wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-sudo apt update
-sudo apt install google-chrome-stable -y
+# wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+# sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+# sudo apt update
+# sudo apt install google-chrome-stable -y
 
 # install java
 # sudo add-apt-repository ppa:linuxuprising/java
@@ -39,9 +39,11 @@ sudo apt install google-chrome-stable -y
 
 # download and install CUDA
 VERSION="10.1"
-SUB_VERSION="105"
+SUB_VERSION="243"
 SUB_SUB_VERSION="1"
 CUDA_TAR_FILE="cuda-${VERSION}.${SUB_VERSION}-${SUB_SUB_VERSION}.deb"
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
+sudo mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
 wget https://lia.epfl.ch/dependencies/${CUDA_TAR_FILE} -O /tmp/${CUDA_TAR_FILE}
 sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
 # sudo rm /etc/apt/sources.list.d/cuda*
@@ -58,7 +60,7 @@ sudo apt update
 sudo apt install cuda=${VERSION}.${SUB_VERSION}-${SUB_SUB_VERSION} -y
 
 # download and install libcudnn
-CUDNN_VERSION="7.5"
+CUDNN_VERSION="7.6"
 CUDNN_TAR_FILE="cudnn-${VERSION}-${CUDNN_VERSION}.tgz"
 wget https://lia.epfl.ch/dependencies/${CUDNN_TAR_FILE} -O /tmp/${CUDNN_TAR_FILE}
 tar -xzvf /tmp/${CUDNN_TAR_FILE}  -C /tmp/
@@ -83,7 +85,7 @@ sudo python3.6 -c "import benepar; benepar.download('benepar_en2_large')"
 # pytorch
 git clone --recursive https://github.com/pytorch/pytorch /tmp/pytorch
 cd /tmp/pytorch
-git checkout tags/v1.1.0
+git checkout tags/v1.3.0
 git submodule sync 
 git submodule update --init --recursive
 sudo python3.6 setup.py install
