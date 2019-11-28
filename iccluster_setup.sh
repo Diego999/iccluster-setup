@@ -38,8 +38,8 @@ sudo apt install -y git nano screen wget zip unzip g++ htop software-properties-
 # echo "innodb_buffer_pool_size=200G" | sudo tee -a /etc/mysql/conf.d/mysql.cnf
 
 # download and install CUDA
-VERSION="10.1"
-SUB_VERSION="243"
+VERSION="10.2"
+SUB_VERSION="440"
 SUB_SUB_VERSION="1"
 CUDA_TAR_FILE="cuda-${VERSION}.${SUB_VERSION}-${SUB_SUB_VERSION}.deb"
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
@@ -57,7 +57,7 @@ sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/
 # sudo apt update
 sudo dpkg -i /tmp/${CUDA_TAR_FILE}
 sudo apt update
-sudo apt install cuda=${VERSION}.${SUB_VERSION}-${SUB_SUB_VERSION} -y
+sudo apt install cuda -y
 
 # download and install libcudnn
 CUDNN_VERSION="7.6"
@@ -85,7 +85,7 @@ sudo python3.6 -c "import benepar; benepar.download('benepar_en2_large')"
 # pytorch
 git clone --recursive https://github.com/pytorch/pytorch /tmp/pytorch
 cd /tmp/pytorch
-git checkout tags/v1.3.0
+git checkout tags/v1.3.1
 git submodule sync 
 git submodule update --init --recursive
 sudo python3.6 setup.py install
