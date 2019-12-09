@@ -112,6 +112,10 @@ git clone https://github.com/neural-dialogue-metrics/Distinct-N.git /tmp/Distinc
 cd /tmp/Distinct-N
 python3.6 setup.py install
 
+git clone https://github.com/Diego999/pyrouge.git /tmp/pyrouge
+cd /tmp/pyrouge
+python3.6 setup.py install
+
 echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}" | sudo tee -a /etc/environment
 echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64/" | sudo tee -a /etc/environment
 echo "export CPATH=/usr/local/cuda/include/${CPATH:+:${CPATH}}" | sudo tee -a /etc/environment
@@ -130,6 +134,7 @@ echo "vm.swappiness=1" | sudo tee -a /etc/sysctl.conf
 # Launch config of CPAN to install XML::Parser for pyrouge
 #cpan
 #install XML::Parser
+#install XML::DOM
 #exit
 
 # Fix if bug with wordnet
