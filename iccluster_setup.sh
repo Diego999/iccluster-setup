@@ -108,6 +108,10 @@ git clone https://github.com/huggingface/neuralcoref.git /tmp/neuralcoref
 cd /tmp/neuralcoref
 python3.6 setup.py install
 
+git clone https://github.com/neural-dialogue-metrics/Distinct-N.git /tmp/Distinct-N
+cd /tmp/Distinct-N
+python3.6 setup.py install
+
 echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}" | sudo tee -a /etc/environment
 echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64/" | sudo tee -a /etc/environment
 echo "export CPATH=/usr/local/cuda/include/${CPATH:+:${CPATH}}" | sudo tee -a /etc/environment
