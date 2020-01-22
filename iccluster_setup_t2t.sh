@@ -8,33 +8,32 @@ export DEBIAN_FRONTEND=noninteractive
 # install python and tools
 apt-get install python3 python3-dev python3-pip python3-yaml git nano screen wget zip unzip g++ htop software-properties-common pkg-config zlib1g-dev gdb cmake cmake-curses-gui autoconf gcc gcc-multilib g++-multilib -y
 
-# download and install CUDA
-VERSION="9.0"
-SUB_VERSION="176"
-SUB_SUB_VERSION="1"
-CUDA_TAR_FILE="cuda-${VERSION}.${SUB_VERSION}-${SUB_SUB_VERSION}.deb"
-#HTTP request sent, awaiting response... 302 Found
-#Location: https://lia.epfl.ch/dependencies/...
-wget https://lia.epfl.ch/dependencies/${CUDA_TAR_FILE} -O /tmp/${CUDA_TAR_FILE}
-apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
-dpkg -i /tmp/${CUDA_TAR_FILE}
-apt-get update
-apt-get install cuda=${VERSION}.${SUB_VERSION}-${SUB_SUB_VERSION} -y
+sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+echo "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /" | sudo tee /etc/apt/sources.list.d/cuda.list
+
+sudo apt-get update 
+sudo apt-get -o Dpkg::Options::="--force-overwrite" install cuda-10-0 cuda-drivers
+
+echo "export PATH=/usr/local/cuda-10.0/bin${PATH:+:${PATH}}" >> ~/.bashrc
+echo "export LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}" >> ~/.bashrc
+source ~/.bashrc
+sudo ldconfig
 
 # download and install libcudnn
-CUDNN_VERSION="7.3"
-CUDNN_TAR_FILE="cudnn-${VERSION}-${CUDNN_VERSION}.tgz"
+CUDNN_TAR_FILE="cudnn-10.0-7.4.tgz"
 wget https://lia.epfl.ch/dependencies/${CUDNN_TAR_FILE} -O /tmp/${CUDNN_TAR_FILE}
 tar -xzvf /tmp/${CUDNN_TAR_FILE}  -C /tmp/
-mkdir -p /usr/local/cuda-${VERSION}/lib64
+mkdir -p /usr/local/cuda-10/lib64
 
-cp -P /tmp/cuda/include/cudnn.h /usr/local/cuda-${VERSION}/include
-cp -P /tmp/cuda/lib64/libcudnn* /usr/local/cuda-${VERSION}/lib64/
-chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
+cp -P /tmp/cuda/include/cudnn.h /usr/local/cuda-10.0/include
+cp -P /tmp/cuda/lib64/libcudnn* /usr/local/cuda-10.0/lib64/
+chmod a+r /usr/local/cuda-10/lib64/libcudnn*
 
 /usr/bin/yes | pip3 install --upgrade pip
-/usr/bin/yes | pip3 install tensor2tensor[tensorflow_gpu]
+/usr/bin/yes | pip3 install tensorflow_gpu==1.13.1
 /usr/bin/yes | pip3 install pillow matplotlib mpmath jupyter pandas sklearn numpy configparser cython nltk py-rouge pyrouge
+
+python3 -m spacy download en
 
 echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}" >> /etc/environment
 echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64/" >> /etc/environment
