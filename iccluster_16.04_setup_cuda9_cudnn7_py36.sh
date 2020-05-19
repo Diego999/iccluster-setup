@@ -27,6 +27,10 @@ sudo cp -P /tmp/cuda/include/cudnn.h /usr/local/cuda-9.0/include
 sudo cp -P /tmp/cuda/lib64/libcudnn* /usr/local/cuda-9.0/lib64/
 sudo chmod a+r /usr/local/cuda-9.0/lib64/libcudnn*
 
+echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}" | sudo tee -a /etc/environment
+echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64/" | sudo tee -a /etc/environment
+echo "export CPATH=/usr/local/cuda/include/${CPATH:+:${CPATH}}" | sudo tee -a /etc/environment
+
 /usr/bin/yes | pip3.6 install --upgrade pip
 /usr/bin/yes | pip3.6 install cython cmake mkl mkl-include numpy pyyaml setuptools cffi typing mako pillow matplotlib mpmath pandas
 
