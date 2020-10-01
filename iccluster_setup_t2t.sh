@@ -12,7 +12,7 @@ sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/
 echo "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /" | sudo tee /etc/apt/sources.list.d/cuda.list
 
 sudo apt-get update 
-sudo apt-get -o Dpkg::Options::="--force-overwrite" install cuda-10-0 cuda-drivers
+sudo apt-get -o Dpkg::Options::="--force-overwrite" install cuda-10-0 cuda-drivers -y
 
 echo "export PATH=/usr/local/cuda-10.0/bin${PATH:+:${PATH}}" >> ~/.bashrc
 echo "export LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}" >> ~/.bashrc
@@ -31,9 +31,7 @@ chmod a+r /usr/local/cuda-10/lib64/libcudnn*
 
 /usr/bin/yes | pip3 install --upgrade pip
 /usr/bin/yes | pip3 install tensorflow_gpu==1.13.1
-/usr/bin/yes | pip3 install pillow matplotlib mpmath jupyter pandas sklearn numpy configparser cython nltk py-rouge pyrouge
-
-python3 -m spacy download en
+/usr/bin/yes | pip3 install tqdm pillow matplotlib mpmath jupyter pandas sklearn numpy configparser cython nltk py-rouge pyrouge
 
 echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}" >> /etc/environment
 echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64/" >> /etc/environment
@@ -66,3 +64,6 @@ mount /dev/sdf /mnt/t5
 
 mkdir /mnt/t6
 mount /dev/sdg /mnt/t6
+
+reboot
+
