@@ -1,7 +1,6 @@
-sudo apt install software-properties-common
-sudo add-apt-repository ppa:jonathonf/python-3.6
-sudo apt update
-sudo apt install python3.6
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt-get update
+sudo apt-get install python3.6
 
 sudo apt install -y python3 python3.6-dev
 wget https://bootstrap.pypa.io/get-pip.py -O /tmp/get-pip.py
@@ -27,6 +26,10 @@ sudo mkdir -p /usr/local/cuda-9.0/lib64
 sudo cp -P /tmp/cuda/include/cudnn.h /usr/local/cuda-9.0/include
 sudo cp -P /tmp/cuda/lib64/libcudnn* /usr/local/cuda-9.0/lib64/
 sudo chmod a+r /usr/local/cuda-9.0/lib64/libcudnn*
+
+echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}" | sudo tee -a /etc/environment
+echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64/" | sudo tee -a /etc/environment
+echo "export CPATH=/usr/local/cuda/include/${CPATH:+:${CPATH}}" | sudo tee -a /etc/environment
 
 /usr/bin/yes | pip3.6 install --upgrade pip
 /usr/bin/yes | pip3.6 install cython cmake mkl mkl-include numpy pyyaml setuptools cffi typing mako pillow matplotlib mpmath pandas
