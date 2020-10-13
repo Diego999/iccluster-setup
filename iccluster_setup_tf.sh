@@ -30,8 +30,12 @@ cp -P /tmp/cuda/lib64/libcudnn* /usr/local/cuda-10.0/lib64/
 chmod a+r /usr/local/cuda-10/lib64/libcudnn*
 
 /usr/bin/yes | pip3 install --upgrade pip
-/usr/bin/yes | pip3 install tensorflow_gpu==1.13.1
-/usr/bin/yes | pip3 install tqdm pillow matplotlib mpmath jupyter pandas sklearn numpy configparser cython nltk py-rouge pyrouge
+/usr/bin/yes | pip3 install tensorboard==1.14.0
+/usr/bin/yes | pip3 install tensorflow-estimator==1.14.0
+/usr/bin/yes | pip3 install tensorflow-gpu==1.14.0
+/usr/bin/yes | pip3 install tqdm pillow matplotlib mpmath jupyter pandas sklearn numpy configparser cython nltk py-rouge pyrouge sty tqdm
+/usr/bin/yes | pip3 install torch==1.4.0
+/usr/bin/yes | pip3 install torchtext
 
 echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}" >> /etc/environment
 echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64/" >> /etc/environment
