@@ -37,6 +37,9 @@ chmod a+r /usr/local/cuda-10/lib64/libcudnn*
 /usr/bin/yes | pip3 install torch==1.4.0
 /usr/bin/yes | pip3 install torchtext
 
+git config --global credential.helper "cache --timeout=360000000"
+git config --global credential.helper store
+
 echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}" >> /etc/environment
 echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64/" >> /etc/environment
 echo "export CPATH=/usr/local/cuda/include/${CPATH:+:${CPATH}}" >> /etc/environment
