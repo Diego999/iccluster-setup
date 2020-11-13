@@ -89,7 +89,7 @@ sudo python3.6 -c "import benepar; benepar.download('benepar_en2_large')"
 #git submodule sync 
 #git submodule update --init --recursive
 #sudo python3.6 setup.py install
-/usr/bin/yes | pip3.6 install torch
+/usr/bin/yes | pip3.6 install torch==1.6.0
 /usr/bin/yes | pip3.6 install torchvision
 
 git clone https://github.com/epfml/sent2vec.git /tmp/sent2vec
@@ -120,6 +120,11 @@ python3.6 setup.py install
 git clone https://github.com/Diego999/pyrouge.git /tmp/pyrouge
 cd /tmp/pyrouge
 python3.6 setup.py install
+
+cd ~
+git config --global credential.helper "cache --timeout=360000000"
+git config --global credential.helper store
+
 
 echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}" | sudo tee -a /etc/environment
 echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64/" | sudo tee -a /etc/environment
