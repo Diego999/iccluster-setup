@@ -49,6 +49,14 @@ echo "export MYSQL_USER='root'" >> /etc/environment
 echo "export MYSQL_PASSWORD=''" >> /etc/environment
 echo "export OMP_NUM_THREADS='1'" >> /etc/environment
 
+echo "alias sl=\"screen -ls\"" >> /etc/environment 
+echo "alias s=\"screen\"" >> /etc/environment 
+echo "alias wn=\"watch -n1 \\\"nvidia-smi\\\"\"" >> /etc/environment 
+echo "sr() {" >> /etc/environment 
+echo "    screen -r $1" >> /etc/environment 
+echo "}" >> /etc/environment 
+
+
 echo "* hard nofile 64000" >> /etc/security/limits.conf 
 
 echo "vm.swappiness=1" >> /etc/sysctl.conf
