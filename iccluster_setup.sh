@@ -141,6 +141,13 @@ echo "* hard nofile 64000" | sudo tee -a /etc/security/limits.conf
 
 echo "vm.swappiness=1" | sudo tee -a /etc/sysctl.conf
 
+echo "alias sl=\"screen -ls\"" >> /etc/environment 
+echo "alias s=\"screen\"" >> /etc/environment 
+echo "alias wn=\"watch -n1 \\\"nvidia-smi\\\"\"" >> /etc/environment 
+echo "sr() {" >> /etc/environment 
+echo "    screen -r $1" >> /etc/environment 
+echo "}" >> /etc/environment 
+
 # Launch config of CPAN to install XML::Parser for pyrouge
 #cpan
 #install XML::Parser
