@@ -33,7 +33,7 @@ chmod a+r /usr/local/cuda-10/lib64/libcudnn*
 /usr/bin/yes | pip3 install tensorboard==1.14.0
 /usr/bin/yes | pip3 install tensorflow-estimator==1.14.0
 /usr/bin/yes | pip3 install tensorflow-gpu==1.14.0
-/usr/bin/yes | pip3 install tqdm pillow matplotlib mpmath jupyter pandas sklearn numpy configparser cython nltk py-rouge pyrouge sty tqdm colored
+/usr/bin/yes | pip3 install tqdm pillow matplotlib mpmath jupyter pandas sklearn numpy configparser cython nltk py-rouge pyrouge sty tqdm colored adabelief-pytorch
 /usr/bin/yes | pip3 install torch==1.4.0
 /usr/bin/yes | pip3 install torchtext
 

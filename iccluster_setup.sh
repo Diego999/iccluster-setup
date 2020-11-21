@@ -74,7 +74,7 @@ sudo chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
 /usr/bin/yes | pip3.6 install --upgrade pip
 /usr/bin/yes | pip3.6 install cython cmake mkl mkl-include numpy dill pyyaml setuptools cffi typing mako pillow matplotlib mpmath klepto
 /usr/bin/yes | pip3.6 install jupyter pandas sklearn tensorflow keras spacy spacy_cld colored jupyterlab configparser gensim pymysql benepar tqdm wandb
-/usr/bin/yes | pip3.6 install selenium networkx bs4 fuzzywuzzy python-levenshtein pyldavis newspaper3k  wikipedia nltk py-rouge beautifultable tensor2tensor tensorboardX benepar
+/usr/bin/yes | pip3.6 install selenium networkx bs4 fuzzywuzzy python-levenshtein pyldavis newspaper3k  wikipedia nltk py-rouge beautifultable tensor2tensor tensorboardX benepar adabelief-pytorch
 
 sudo python3.6 -m spacy download en_core_web_lg
 sudo python3.6 -c "import nltk; nltk.download('punkt')"
