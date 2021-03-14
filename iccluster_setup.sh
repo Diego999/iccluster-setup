@@ -72,9 +72,12 @@ sudo chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
 
 # install python packages for machine learning
 /usr/bin/yes | pip3.6 install --upgrade pip
-/usr/bin/yes | pip3.6 install cython cmake mkl mkl-include numpy dill pyyaml setuptools cffi typing mako pillow matplotlib mpmath klepto
-/usr/bin/yes | pip3.6 install jupyter pandas sklearn tensorflow keras spacy spacy_cld colored jupyterlab configparser gensim pymysql benepar tqdm wandb
+/usr/bin/yes | pip3.6 install cython cmake mkl mkl-include dill pyyaml setuptools cffi typing mako pillow matplotlib mpmath klepto
+/usr/bin/yes | pip3.6 install jupyter sklearn tensorflow keras spacy spacy_cld colored jupyterlab configparser gensim pymysql benepar tqdm wandb optuna bottleneck 
 /usr/bin/yes | pip3.6 install selenium networkx bs4 fuzzywuzzy python-levenshtein pyldavis newspaper3k  wikipedia nltk py-rouge beautifultable tensor2tensor tensorboardX benepar adabelief-pytorch
+/usr/bin/yes | pip3.6 install --ignore-installed PyYAML
+/usr/bin/yes | pip3.6 install numpy==1.17.3
+/usr/bin/yes | pip3.6 install pandas==1.0.5
 
 sudo python3.6 -m spacy download en_core_web_lg
 sudo python3.6 -c "import nltk; nltk.download('punkt')"
@@ -90,36 +93,36 @@ sudo python3.6 -c "import benepar; benepar.download('benepar_en2_large')"
 #git submodule update --init --recursive
 #sudo python3.6 setup.py install
 /usr/bin/yes | pip3.6 install torch==1.6.0
-/usr/bin/yes | pip3.6 install torchvision
+#/usr/bin/yes | pip3.6 install torchvision
 
-git clone https://github.com/epfml/sent2vec.git /tmp/sent2vec
-cd /tmp/sent2vec
-make
-python3.6 setup.py install
+#git clone https://github.com/epfml/sent2vec.git /tmp/sent2vec
+#cd /tmp/sent2vec
+#make
+#python3.6 setup.py install
 
-git clone https://github.com/bheinzerling/pyrouge.git /tmp/pyrouge
-cd /tmp/pyrouge
-python3.6 setup.py install
+#git clone https://github.com/bheinzerling/pyrouge.git /tmp/pyrouge
+#cd /tmp/pyrouge
+#python3.6 setup.py install
 
-git clone -b dev https://github.com/Diego999/sumy /tmp/sumy
-cd /tmp/sumy
-python3.6 setup.py install
+#git clone -b dev https://github.com/Diego999/sumy /tmp/sumy
+#cd /tmp/sumy
+#python3.6 setup.py install
 
-git clone https://github.com/Diego999/text_histogram.git /tmp/text_histogram
-cd /tmp/text_histogram
-python3.6 setup.py install
+#git clone https://github.com/Diego999/text_histogram.git /tmp/text_histogram
+#cd /tmp/text_histogram
+#python3.6 setup.py install
 
-git clone https://github.com/huggingface/neuralcoref.git /tmp/neuralcoref
-cd /tmp/neuralcoref
-python3.6 setup.py install
+#git clone https://github.com/huggingface/neuralcoref.git /tmp/neuralcoref
+#cd /tmp/neuralcoref
+#python3.6 setup.py install
 
-git clone https://github.com/neural-dialogue-metrics/Distinct-N.git /tmp/Distinct-N
-cd /tmp/Distinct-N
-python3.6 setup.py install
+#git clone https://github.com/neural-dialogue-metrics/Distinct-N.git /tmp/Distinct-N
+#cd /tmp/Distinct-N
+#python3.6 setup.py install
 
-git clone https://github.com/Diego999/pyrouge.git /tmp/pyrouge
-cd /tmp/pyrouge
-python3.6 setup.py install
+#git clone https://github.com/Diego999/pyrouge.git /tmp/pyrouge
+#cd /tmp/pyrouge
+#python3.6 setup.py install
 
 cd ~
 git config --global credential.helper "cache --timeout=360000000"
