@@ -73,11 +73,12 @@ sudo chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
 # install python packages for machine learning
 /usr/bin/yes | pip3.6 install --upgrade pip
 /usr/bin/yes | pip3.6 install cython cmake mkl mkl-include dill pyyaml setuptools cffi typing mako pillow matplotlib mpmath klepto
-/usr/bin/yes | pip3.6 install jupyter sklearn tensorflow keras spacy spacy_cld colored jupyterlab configparser gensim pymysql benepar tqdm wandb optuna bottleneck 
+/usr/bin/yes | pip3.6 install jupyter sklearn scikit-learn tensorflow keras spacy spacy_cld colored jupyterlab configparser gensim pymysql benepar tqdm wandb optuna bottleneck 
 /usr/bin/yes | pip3.6 install selenium networkx bs4 fuzzywuzzy python-levenshtein pyldavis newspaper3k  wikipedia nltk py-rouge beautifultable tensor2tensor tensorboardX benepar adabelief-pytorch
 /usr/bin/yes | pip3.6 install --ignore-installed PyYAML
 /usr/bin/yes | pip3.6 install numpy==1.17.3
 /usr/bin/yes | pip3.6 install pandas==1.0.5
+/usr/bin/yes | pip3.6 install scikit-learn==0.20.3
 
 sudo python3.6 -m spacy download en_core_web_lg
 sudo python3.6 -c "import nltk; nltk.download('punkt')"
