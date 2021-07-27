@@ -38,8 +38,8 @@ sudo apt install -y git nano screen wget zip unzip g++ htop software-properties-
 # echo "innodb_buffer_pool_size=200G" | sudo tee -a /etc/mysql/conf.d/mysql.cnf
 
 # download and install CUDA
-VERSION="10.2"
-SUB_VERSION="440"
+VERSION="11.4"
+SUB_VERSION="470"
 SUB_SUB_VERSION="1"
 CUDA_TAR_FILE="cuda-${VERSION}.${SUB_VERSION}-${SUB_SUB_VERSION}.deb"
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
@@ -60,25 +60,26 @@ sudo apt update
 sudo apt install cuda -y
 
 # download and install libcudnn
-CUDNN_VERSION="7.6"
+CUDNN_VERSION="8.2"
 CUDNN_TAR_FILE="cudnn-${VERSION}-${CUDNN_VERSION}.tgz"
 wget https://lia.epfl.ch/dependencies/${CUDNN_TAR_FILE} -O /tmp/${CUDNN_TAR_FILE}
 tar -xzvf /tmp/${CUDNN_TAR_FILE}  -C /tmp/
 sudo mkdir -p /usr/local/cuda-${VERSION}/lib64
 
-sudo cp -P /tmp/cuda/include/cudnn.h /usr/local/cuda-${VERSION}/include
+sudo cp -P /tmp/cuda/include/*.h /usr/local/cuda-${VERSION}/include
 sudo cp -P /tmp/cuda/lib64/libcudnn* /usr/local/cuda-${VERSION}/lib64/
 sudo chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
 
 # install python packages for machine learning
 /usr/bin/yes | pip3.6 install --upgrade pip
-/usr/bin/yes | pip3.6 install cython cmake mkl mkl-include dill pyyaml setuptools cffi typing mako pillow matplotlib mpmath klepto
-/usr/bin/yes | pip3.6 install jupyter sklearn scikit-learn tensorflow keras spacy spacy_cld colored jupyterlab configparser gensim pymysql benepar tqdm wandb optuna bottleneck 
-/usr/bin/yes | pip3.6 install selenium networkx bs4 fuzzywuzzy python-levenshtein pyldavis newspaper3k  wikipedia nltk py-rouge beautifultable tensor2tensor tensorboardX benepar adabelief-pytorch
+/usr/bin/yes | pip3.6 install cython cmake mkl mkl-include dill pyyaml setuptools cffi typing mako pillow matplotlib mpmath klepto adabelief-pytorch pyrouge wandb colored
+/usr/bin/yes | pip3.6 install transformers nltk
+/usr/bin/yes | pip3.6 install jupyter tensorflow keras spacy spacy_cld colored jupyterlab configparser gensim pymysql benepar tqdm wandb optuna bottleneck 
+/usr/bin/yes | pip3.6 install selenium networkx bs4 fuzzywuzzy python-levenshtein pyldavis newspaper3k  wikipedia nltk beautifultable tensorboardX benepar 
 /usr/bin/yes | pip3.6 install --ignore-installed PyYAML
 /usr/bin/yes | pip3.6 install numpy==1.17.3
 /usr/bin/yes | pip3.6 install pandas==1.0.5
-/usr/bin/yes | pip3.6 install scikit-learn==0.20.3
+/usr/bin/yes | pip3.6 install scikit-learn==0.24.2
 
 sudo python3.6 -m spacy download en_core_web_lg
 sudo python3.6 -c "import nltk; nltk.download('punkt')"
@@ -87,14 +88,7 @@ sudo python3.6 -c "import benepar; benepar.download('benepar_en2')"
 sudo python3.6 -c "import benepar; benepar.download('benepar_en2_large')"
 
 # pytorch
-#git clone --recursive https://github.com/pytorch/pytorch /tmp/pytorch
-#cd /tmp/pytorch
-#git checkout tags/v1.3.1 # 'hope this is 1.3.0a0+ee77ccb'
-#git submodule sync 
-#git submodule update --init --recursive
-#sudo python3.6 setup.py install
-/usr/bin/yes | pip3.6 install torch==1.6.0
-#/usr/bin/yes | pip3.6 install torchvision
+/usr/bin/yes | pip3.6 install torch==1.9.0+cu111 torchvision==0.10.0+cu111 torchaudio==0.9.0 -f https://download.pytorch.org/whl/torch_stable.html
 
 #git clone https://github.com/epfml/sent2vec.git /tmp/sent2vec
 #cd /tmp/sent2vec
@@ -117,9 +111,9 @@ sudo python3.6 -c "import benepar; benepar.download('benepar_en2_large')"
 #cd /tmp/neuralcoref
 #python3.6 setup.py install
 
-#git clone https://github.com/neural-dialogue-metrics/Distinct-N.git /tmp/Distinct-N
-#cd /tmp/Distinct-N
-#python3.6 setup.py install
+git clone https://github.com/neural-dialogue-metrics/Distinct-N.git /tmp/Distinct-N
+cd /tmp/Distinct-N
+python3.6 setup.py install
 
 #git clone https://github.com/Diego999/pyrouge.git /tmp/pyrouge
 #cd /tmp/pyrouge
