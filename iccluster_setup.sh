@@ -72,8 +72,9 @@ sudo chmod a+r /usr/local/cuda-${VERSION}/lib64/libcudnn*
 
 # install python packages for machine learning
 /usr/bin/yes | pip3.6 install --upgrade pip
-/usr/bin/yes | pip3.6 install cython cmake mkl mkl-include dill pyyaml setuptools cffi typing mako pillow matplotlib mpmath klepto adabelief-pytorch pyrouge wandb colored
-/usr/bin/yes | pip3.6 install transformers nltk
+/usr/bin/yes | pip3.6 install cython cmake mkl mkl-include dill pyyaml setuptools cffi typing mako pillow matplotlib mpmath klepto adabelief-pytorch wandb colored
+/usr/bin/yes | pip3.6 install transformers nltk optuna
+/usr/bin/yes | pip3.6 install nltk
 /usr/bin/yes | pip3.6 install jupyter tensorflow keras spacy spacy_cld colored jupyterlab configparser gensim pymysql benepar tqdm wandb optuna bottleneck 
 /usr/bin/yes | pip3.6 install selenium networkx bs4 fuzzywuzzy python-levenshtein pyldavis newspaper3k  wikipedia nltk beautifultable tensorboardX benepar 
 /usr/bin/yes | pip3.6 install --ignore-installed PyYAML
@@ -115,9 +116,9 @@ git clone https://github.com/neural-dialogue-metrics/Distinct-N.git /tmp/Distinc
 cd /tmp/Distinct-N
 python3.6 setup.py install
 
-#git clone https://github.com/Diego999/pyrouge.git /tmp/pyrouge
-#cd /tmp/pyrouge
-#python3.6 setup.py install
+git clone https://github.com/Diego999/pyrouge.git /tmp/pyrouge
+cd /tmp/pyrouge
+python3.6 setup.py install
 
 cd ~
 git config --global credential.helper "cache --timeout=360000000"
@@ -155,12 +156,14 @@ source /etc/profile
 #exit
 
 # Fix if bug with wordnet
-#cd data/WordNet-2.0-Exceptions/
-#rm WordNet-2.0.exc.db # only if exist
-#./buildExeptionDB.pl . exc WordNet-2.0.exc.db
-#cd ../
-#rm WordNet-2.0.exc.db # only if exist
-#ln -s WordNet-2.0-Exceptions/WordNet-2.0.exc.db WordNet-2.0.exc.db
+cd data
+wget https://www.dropbox.com/s/r9hoyha7hf4dxl7/smart_common_words.txt
+cd WordNet-2.0-Exceptions/
+rm WordNet-2.0.exc.db # only if exist
+./buildExeptionDB.pl . exc WordNet-2.0.exc.db
+cd ../
+rm WordNet-2.0.exc.db # only if exist
+ln -s WordNet-2.0-Exceptions/WordNet-2.0.exc.db WordNet-2.0.exc.db
 
 sudo mkdir /mnt/t1
 sudo mount /dev/sdb /mnt/t1
